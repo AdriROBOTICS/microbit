@@ -6,67 +6,28 @@
     <title>Step Tracker</title>
     <style>
       body {
-        min-height: 100vh;
-        margin: 0;
         font-family: sans-serif;
-        background-color: #f0f0f0;
-      }
-
-      .container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-height: calc(100vh - 40px); /* Adjust for padding */
-        padding: 20px;
+        min-height: 100vh;
+        margin: 0;
       }
-
-      .steps-display {
-        background-color: #4682B4; /* Steel Blue */
-        color: white;
-        padding: 20px;
-        border-radius: 15px;
-        margin-bottom: 20px;
-        font-size: 1.5em;
-        text-align: center;
-      }
-
       #progress-bar-container {
         width: 80%;
-        background-color: #ddd;
-        border-radius: 10px;
+        background-color: #00d5ff;
+        border-radius: 5px;
         margin-top: 20px;
         overflow: hidden;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       }
-
       #progress-bar {
-        height: 30px;
+        height: 20px;
         background-color: #4CAF50;
         width: 0%;
         text-align: center;
-        line-height: 30px;
-        color: white;
-        transition: width 0.5s ease-in-out;
-      }
-
-      .menu-toggle {
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        width: 40px;
-        height: 40px;
-        background-color: #333;
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        cursor: pointer;
-        padding: 8px;
-        box-sizing: border-box;
-        z-index: 1000;
+        line-height: 20px;
+        color: rgb(0, 0, 0);
       }
     </style>
   </head>
@@ -78,33 +39,10 @@
     </div>
 
     <script>
-      document.addEventListener('DOMContentLoaded', (event) => {
-        const menuToggle = document.querySelector('.menu-toggle');
-        // const dropdownMenu = document.getElementById('dropdown-menu'); // Uncomment when menu is added
-
-        menuToggle.addEventListener('click', () => {
-          // dropdownMenu.classList.toggle('show'); // Uncomment when menu is added
-          alert('Menu toggled (placeholder)'); // Placeholder for now
-        });
-
-        fetchData();
-        // You might want to set up an interval to fetch data periodically
-        // setInterval(fetchData, 5000); // Fetch data every 5 seconds
-      });
-
       async function fetchData() {
         const response = await fetch('/data');
         const data = await response.json();
         document.getElementById('step-count').textContent = data.steps;
-
-        // Basic display for now, will be in a blue box later
-        const stepsDisplay = document.createElement('div');
-        stepsDisplay.classList.add('steps-display');
-        stepsDisplay.innerHTML = `PASOS: <span id="current-steps">${data.steps}</span>`;
-
-        const container = document.querySelector('.container');
-        // Replace the original h1 with the styled div
-        container.replaceChild(stepsDisplay, document.querySelector('h1'));
 
         const progressBar = document.getElementById('progress-bar');
         const percentage = (data.steps / data.target_steps) * 100;
@@ -113,26 +51,8 @@
       }
 
       fetchData();
-    </script>
-
-    <div class="menu-toggle">
-      <div class="menu-icon-line"></div>
-      <div class="menu-icon-line"></div>
-      <div class="menu-icon-line"></div>
-    </div>
-
-    <div id="dropdown-menu" class="dropdown-menu">
-      <!-- Menu items will go here -->
-      <h2>Settings</h2>
-      <p>Weight:</p>
-      <input type="number" id="weight" value="70"> kg
-      <p>Age:</p>
-      <input type="number" id="age" value="30"> years
-      <p>Height:</p>
-      <input type="number" id="height" value="175"> cm
-      <p>Target Steps:</p>
-      <input type="number" id="target-steps" value="8000"> steps
-      <button onclick="saveSettings()">Save</button>
+      // You might want to set up an interval to fetch data periodically
+      // setInterval(fetchData, 5000); // Fetch data every 5 seconds
     </script>
   </body>
 </html>

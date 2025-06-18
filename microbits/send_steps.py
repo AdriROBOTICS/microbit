@@ -41,6 +41,7 @@ ultimo_tiempo = 0
 aceleracion_anterior = 0
 tiempo_actual = 0
 aceleracion_actual = 0
+enviado = 0
 total = 0
 z = 0
 y = 0
@@ -56,7 +57,10 @@ basic.show_string("0")
 radio.set_group(24)
 
 def on_every_interval():
-    radio.send_number(pasos)
+    global enviado
+    if pasos != enviado:
+        radio.send_number(pasos)
+        enviado = pasos
 loops.every_interval(1000, on_every_interval)
 
 # Iniciar bucle principal
@@ -76,7 +80,7 @@ def on_forever():
         if pasos < 10:
             basic.show_number(pasos)
         else:
-            basic.show_string("" + str((pasos)))
+            basic.show_string("" + str(pasos))
         basic.pause(1000)
         basic.clear_screen()
     # Actualizar aceleración anterior
